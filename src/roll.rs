@@ -12,7 +12,15 @@ fn sum_die(total: &str, faces: &str) -> i32 {
     return sum;
 }
 
-pub fn parse_roll(roll_arg: &str) -> i32 {
+pub fn print_result(roll: &str, sum: i32) {
+    if sum == 0 {
+        println!("There was an issue parsing your input. Please try again using dice notation.");
+    } else {
+        println!("Rolling {roll}, result is: {sum}");
+    }
+}
+
+pub fn execute(roll_arg: &str) -> i32 {
     let dice_reg = Regex::new(r"(?P<total>\d+)d{1}(?P<faces>\d+)").unwrap();
     let cmd_reg = Regex::new(r"((?P<dice>[+-]?\d+d\d+)|(?P<num>[+-]\d+))").unwrap();
     let matches = cmd_reg.captures_iter(roll_arg);
@@ -40,15 +48,12 @@ pub fn parse_roll(roll_arg: &str) -> i32 {
             let (total, faces) = (&roll_cap["total"], &roll_cap["faces"]);
             let sum = sum_die(total, faces);
             if is_neg == true {
-                println!("Dice: {}, result: {}", dice, -sum);
                 -sum
             } else {
-                println!("Dice: {}, result: {}", dice, sum);
                 sum
             }
         } else if num.len() > 0 {
             let num = num.replace("+", "").parse::<i32>().unwrap();
-            println!("Number: {num}");
             num
         } else {
             0

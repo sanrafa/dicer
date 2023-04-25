@@ -1,3 +1,4 @@
+mod repl;
 mod roll;
 use clap::{Parser, Subcommand};
 
@@ -25,11 +26,14 @@ enum Mode<'a> {
 impl Mode<'_> {
     pub fn run(&self) {
         match self {
-            Mode::Interactive => println!("Entering interactive mode."),
+            Mode::Interactive => {
+                repl::start().unwrap();
+                println!("Goodbye!");
+            }
             Mode::Noninteractive(cmd) => match cmd {
                 Commands::Roll { roll } => {
-                    let sum = roll::parse_roll(roll);
-                    println!("Rolling {roll}, result is: {sum}");
+                    let sum = roll::execute(roll);
+                    roll::print_result(roll, sum);
                 }
             },
         }
