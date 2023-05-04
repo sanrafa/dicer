@@ -15,6 +15,14 @@ enum Commands {
     /// Make a summed dice roll
     #[command(arg_required_else_help = true)]
     Roll { roll: String },
+    /// Roll a dice pool
+    Pool {
+        /// Number of die faces. Ignored if provided in roll argument
+        #[arg(short, long = "dice", default_value_t = 10, value_name = "NUMBER")]
+        dice_type: u16,
+        /// Dice pool - can be dice notation or arithmetic. Returns result of each die.
+        roll: Option<String>,
+    },
 }
 
 #[derive(Debug)]
@@ -34,6 +42,10 @@ impl Mode<'_> {
                 Commands::Roll { roll } => {
                     let sum = roll::execute(roll);
                     roll::print_result(roll, sum);
+                }
+                Commands::Pool { dice_type, roll } => {
+                    let pool = roll.as_ref().expect("roll must be provided");
+                    println!("Rolling d{dice_type} pool with roll {pool}!");
                 }
             },
         }
