@@ -1,3 +1,4 @@
+mod pool;
 mod repl;
 mod roll;
 use clap::{Parser, Subcommand};
@@ -43,10 +44,13 @@ impl Mode<'_> {
                     let sum = roll::execute(roll);
                     roll::print_result(roll, sum);
                 }
-                Commands::Pool { dice_type, roll } => {
-                    let pool = roll.as_ref().expect("roll must be provided");
-                    println!("Rolling d{dice_type} pool with roll {pool}!");
-                }
+                Commands::Pool { dice_type, roll } => match roll {
+                    None => println!("Error: no roll argument provided."),
+                    Some(roll) => {
+                        let result = pool::execute(*dice_type, roll);
+                        pool::print_result(roll, *dice_type, result);
+                    }
+                },
             },
         }
     }
