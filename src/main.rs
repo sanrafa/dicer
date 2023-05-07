@@ -18,9 +18,12 @@ enum Commands {
     Roll { roll: String },
     /// Roll a dice pool
     Pool {
-        /// Number of die faces. Ignored if provided in roll argument
-        #[arg(short, long = "dice", default_value_t = 10, value_name = "NUMBER")]
+        /// Set number of die faces. Integers represent the amount of dice. Can be overridden in roll argument
+        #[arg(short, long = "die", default_value_t = 10, value_name = "NUMBER")]
         dice_type: u16,
+        /// Set threshold for a successful roll. If higher than maximum die, results in 0 successes
+        #[arg(short, long, value_name = "NUMBER")]
+        threshold: Option<u16>,
         /// Dice pool - can be dice notation or arithmetic. Returns result of each die.
         roll: Option<String>,
     },
@@ -44,10 +47,14 @@ impl Mode<'_> {
                     let sum = roll::execute(roll);
                     roll::print_result(roll, sum);
                 }
-                Commands::Pool { dice_type, roll } => match roll {
+                Commands::Pool {
+                    dice_type,
+                    roll,
+                    threshold,
+                } => match roll {
                     None => println!("Error: no roll argument provided."),
                     Some(roll) => {
-                        let result = pool::execute(*dice_type, roll);
+                        let result = pool::execute(*dice_type, roll, *threshold);
                         pool::print_result(roll, *dice_type, result);
                     }
                 },
