@@ -9,6 +9,10 @@ use clap::{Parser, Subcommand};
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
+
+    /// Default to dice pools. Can be overridden by prepending `roll` to command
+    #[arg(short, long, default_value_t = false)]
+    pool: bool,
 }
 
 #[derive(Debug, Subcommand)]
@@ -31,15 +35,15 @@ enum Commands {
 
 #[derive(Debug)]
 enum Mode<'a> {
-    Interactive,
+    Interactive(bool),
     Noninteractive(&'a Commands),
 }
 
 impl Mode<'_> {
     pub fn run(&self) {
         match self {
-            Mode::Interactive => {
-                repl::start().unwrap();
+            Mode::Interactive(pool) => {
+                repl::start(*pool).unwrap();
                 println!("Goodbye!");
             }
             Mode::Noninteractive(cmd) => match cmd {
@@ -52,7 +56,7 @@ impl Mode<'_> {
                     roll,
                     threshold,
                 } => match roll {
-                    None => println!("Error: no roll argument provided."),
+                    None => println!("Error: no roll argument provided. Use `dicer -p` or `dicer --pool` to enter the REPL in 'pool' mode."),
                     Some(roll) => {
                         let result = pool::execute(*dice_type, roll, *threshold);
                         pool::print_result(roll, *dice_type, result);
@@ -67,7 +71,7 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        None => Mode::Interactive.run(),
+        None => Mode::Interactive(cli.pool).run(),
         Some(cmd) => Mode::Noninteractive(cmd).run(),
     }
 }

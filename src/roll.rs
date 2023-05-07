@@ -18,9 +18,9 @@ fn sum_die(total: &str, faces: &str) -> i32 {
 
 pub fn print_result(roll: &str, sum: i32) {
     if sum == 0 {
-        println!("Error parsing input. Please try again using dice notation.");
+        println!("\nError parsing input. Please try again using dice notation.\n");
     } else {
-        println!("Rolling {roll}, result is: {sum}");
+        println!("\nRolling {roll}, result is: {sum}\n");
     }
 }
 

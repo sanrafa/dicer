@@ -8,7 +8,7 @@ pub fn print_result(roll: &str, die_face: u16, results: Vec<(i32, bool)>) {
         .map(|(_, s)| if s { 1 } else { 0 })
         .sum();
     println!(
-        "Rolling pool {roll}, default die 1d{die_face}\nResult:\n\n{:?}\n\nSUCCESSES: {successes}",
+        "\nRolling pool {roll}, default die 1d{die_face}\nResult:\n\n{:?}\n\nSUCCESSES: {successes}\n",
         rolls
     )
 }
