@@ -56,7 +56,7 @@ impl Mode<'_> {
                     roll,
                     threshold,
                 } => match roll {
-                    None => println!("Error: no roll argument provided. Use `dicer -p` or `dicer --pool` to enter the REPL in 'pool' mode."),
+                    None => eprintln!("Error: no roll argument provided. Use `dicer -p` or `dicer --pool` to enter the REPL in 'pool' mode."),
                     Some(roll) => {
                         let result = pool::execute(*dice_type, roll, *threshold);
                         pool::print_result(roll, *dice_type, result);

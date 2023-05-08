@@ -44,7 +44,7 @@ pub fn start(pool: bool) -> Result<()> {
                            TODO: Allow user to control threshold. Currently, it'll default to half + 1 of die max.
                         */
                         if arg.is_empty() {
-                            println!("\nError: No argument provided.\n");
+                            eprintln!("\nError: No argument provided.\n");
                         } else {
                             let default_die = 10;
                             let results = pool::execute(default_die, arg, None);
@@ -54,11 +54,11 @@ pub fn start(pool: bool) -> Result<()> {
                 }
             }
             Err(ReadlineError::Interrupted) => {
-                println!("CTRL-C");
+                eprintln!("CTRL-C");
                 break;
             }
             Err(err) => {
-                println!("Error: {:?}", err);
+                eprintln!("Error: {:?}", err);
                 break;
             }
         }
