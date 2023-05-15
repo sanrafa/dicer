@@ -23,10 +23,7 @@ pub fn start(pool: bool) -> Result<()> {
                         println!("\nPool mode activated. Returning pooled results:\n")
                     } else {
                         let result = dicer_lib::roll(arg);
-                        match result {
-                            Ok(sum) => roll::print_result(arg, sum),
-                            Err(_) => roll::print_result(arg, 0),
-                        }
+                        roll::print_result(arg, result)
                     }
                 } else {
                     if arg.starts_with("roll") {
@@ -39,10 +36,7 @@ pub fn start(pool: bool) -> Result<()> {
                             Some(arg) => {
                                 let (_, roll) = arg;
                                 let result = dicer_lib::roll(roll);
-                                match result {
-                                    Ok(sum) => roll::print_result(roll, sum),
-                                    Err(_) => roll::print_result(roll, 0),
-                                }
+                                roll::print_result(roll, result)
                             }
                         }
                     } else {

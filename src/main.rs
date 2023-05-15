@@ -50,10 +50,7 @@ impl Mode<'_> {
             Mode::Noninteractive(cmd) => match cmd {
                 Commands::Roll { roll } => {
                     let result = dicer_lib::roll(roll);
-                    match result {
-                        Ok(sum) => roll::print_result(roll, sum),
-                        Err(_) =>  roll::print_result(roll, 0)
-                    }
+                    roll::print_result(roll, result)
                 }
                 Commands::Pool {
                     dice_type,

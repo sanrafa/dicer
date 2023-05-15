@@ -16,11 +16,15 @@ Options:
 
 ### `dicer roll <ROLL>`
 
-Execute a summed dice roll. ROLL argument should be standard dice notation, e.g. `3d100` or `2d6+1d10-3`. Only addition and subtraction operations are allowed.
+Execute a summed dice roll. ROLL argument should be standard dice notation, e.g. `3d100` or `2d6+1d10-3`. You can also use more complex arithmetic like `"(2d12+(3/(5*4d10)))"`.
+
+Note: arguments with surrounding parentheses should be enclosed in double-quotes.
+
+Exploding dice are supported, just use `!` at the end: `6d6!`
 
 ### `dicer pool [OPTIONS] <ROLL>`
 
-Execute a pooled dice roll. ROLL argument should be dice notation (`3d6`, `2d10+4d6+2`), arithmetic (`1+2+3`), or a single integer. Only addition operations are allowed.
+Execute a pooled dice roll. ROLL argument should be dice notation (`3d6`, `2d10+4d6+2`), arithmetic (`1+2+3`), or a single integer.
 
 Options:
 
