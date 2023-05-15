@@ -2,6 +2,7 @@ mod pool;
 mod repl;
 mod roll;
 use clap::{Parser, Subcommand};
+use dicer_lib::roll;
 
 #[derive(Debug, Parser)]
 #[command(name = "dicer")]
@@ -48,8 +49,11 @@ impl Mode<'_> {
             }
             Mode::Noninteractive(cmd) => match cmd {
                 Commands::Roll { roll } => {
-                    let sum = roll::execute(roll);
-                    roll::print_result(roll, sum);
+                    let result = dicer_lib::roll(roll);
+                    match result {
+                        Ok(sum) => roll::print_result(roll, sum),
+                        Err(_) =>  roll::print_result(roll, 0)
+                    }
                 }
                 Commands::Pool {
                     dice_type,

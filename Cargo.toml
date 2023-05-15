@@ -10,3 +10,4 @@ clap = { version = "4.2.4", features = ["derive"] }
 rand = "0.8.5"
 regex = "1.8.0"
 rustyline = "11.0.0"
+dicer_lib = {git = "https://github.com/sanrafa/dicer_lib.git"}
