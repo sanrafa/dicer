@@ -186,7 +186,7 @@ dependencies = [
 [[package]]
 name = "dicer_lib"
 version = "0.1.0"
-source = "git+https://github.com/sanrafa/dicer_lib.git#002e22268d6d1905f3752f958200e2a247a57aa3"
+source = "git+https://github.com/sanrafa/dicer_lib.git#65d5835bcb284ce9963d6d2b33afa238206b30dd"
 dependencies = [
  "anyhow",
  "lazy_static",
@@ -442,9 +442,9 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.56"
+version = "1.0.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b63bdb0cd06f1f4dedf69b254734f9b45af66e4a031e42a7480257d9898b435"
+checksum = "c4ec6d5fe0b140acb27c9a0444118cf55bfbb4e0b259739429abb4521dd67c16"
 dependencies = [
  "unicode-ident",
 ]
