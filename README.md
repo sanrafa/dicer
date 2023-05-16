@@ -34,8 +34,9 @@ Options:
   - Set default number of die faces. Whenever an integer is used in argument, it represents amount of dice of this type.
   - Can be overridden by using dice notation.
 
-- `-t, --threshold <NUMBER>`
+- `-t, --threshold <FRACTION | DECIMAL | INTEGER>`
 
   - Set threshold for a successful roll. If higher than maximum die, results in 0 successes.
-  - NOTE: this currently applies to the entire roll, regardless of types of dice used.
+  - If less than 1, minimum for success equals `threshold * die_faces + 1` (rounded down). Ex. threshold of 3/4 for d10 requires 8 or higher for success.
+  - If 1 or greater, represents dice target. Ex. threshold of 5 means all dice throws 5 or over will be successful.
   - Defaults to `die_faces / 2 + 1`
