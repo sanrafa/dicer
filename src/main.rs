@@ -23,13 +23,13 @@ enum Commands {
     Roll { roll: String },
     /// Roll a dice pool
     Pool {
-        /// Set number of die faces. Integers represent the amount of dice. Can be overridden in roll argument
-        #[arg(short, long = "die", default_value_t = 10, value_name = "NUMBER")]
+        /// Set base number of die faces
+        #[arg(short, long = "die", default_value_t = 10, value_name = "INTEGER")]
         dice_type: u16,
-        /// Set threshold for a successful roll. If higher than maximum die, results in 0 successes
-        #[arg(short, long, value_name = "NUMBER")]
-        threshold: Option<u16>,
-        /// Dice pool - can be dice notation or arithmetic. Returns result of each die.
+        /// Set threshold for a successful roll. If greater than 1, threshold is minimum for success
+        #[arg(short, long, value_name = "FRACTION | DECIMAL | INTEGER")]
+        threshold: Option<String>,
+        /// Dice pool - can be dice notation or arithmetic. Returns result of each die
         roll: Option<String>,
     },
 }
@@ -59,8 +59,9 @@ impl Mode<'_> {
                 } => match roll {
                     None => eprintln!("Error: no roll argument provided. Use `dicer -p` or `dicer --pool` to enter the REPL in 'pool' mode."),
                     Some(roll) => {
-                        let result = pool::execute(*dice_type, roll, *threshold);
-                        pool::print_result(roll, *dice_type, result);
+
+                        let results = pool::execute(*dice_type, roll, threshold.as_deref());
+                        pool::print_result(roll, *dice_type, results)
                     }
                 },
             },

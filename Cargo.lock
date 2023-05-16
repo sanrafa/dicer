@@ -178,7 +178,6 @@ dependencies = [
  "anyhow",
  "clap",
  "dicer_lib",
- "rand",
  "regex",
  "rustyline",
 ]
@@ -186,7 +185,7 @@ dependencies = [
 [[package]]
 name = "dicer_lib"
 version = "0.1.0"
-source = "git+https://github.com/sanrafa/dicer_lib.git#65d5835bcb284ce9963d6d2b33afa238206b30dd"
+source = "git+https://github.com/sanrafa/dicer_lib.git?branch=main#554967a960ee6c29f84f264a844951a920930cb2"
 dependencies = [
  "anyhow",
  "lazy_static",
